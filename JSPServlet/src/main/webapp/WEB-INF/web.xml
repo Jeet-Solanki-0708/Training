@@ -1,0 +1,80 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <context-param>
+  	<param-name>Name</param-name>
+  	<param-value>Dhairya</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>Age</param-name>
+  	<param-value>21</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>Nationality</param-name>
+  	<param-value>Indian</param-value>
+  </context-param>
+  <servlet>
+  	<servlet-name>requestdispatcher</servlet-name>
+  	<display-name>requestdispatcher</display-name>
+  	<description></description>
+  	<servlet-class>com.Controller.requestdispatcher</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Login</servlet-name>
+  	<display-name>Login</display-name>
+  	<description></description>
+  	<servlet-class>com.Controller.Login</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Logout</servlet-name>
+  	<display-name>Logout</display-name>
+  	<description></description>
+  	<servlet-class>com.Controller.Logout</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ViewServlet</servlet-name>
+  	<display-name>ViewServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.Controller.ViewServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>FirstServletContext</servlet-name>
+  	<display-name>FirstServletContext</display-name>
+  	<description></description>
+  	<servlet-class>com.Controller.FirstServletContext</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SecondServletContext</servlet-name>
+  	<display-name>SecondServletContext</display-name>
+  	<description></description>
+  	<servlet-class>com.Controller.SecondServletContext</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>requestdispatcher</servlet-name>
+  	<url-pattern>/requestdispatcher</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Login</servlet-name>
+  	<url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Logout</servlet-name>
+  	<url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ViewServlet</servlet-name>
+  	<url-pattern>/ViewServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>FirstServletContext</servlet-name>
+  	<url-pattern>/FirstServletContext</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SecondServletContext</servlet-name>
+  	<url-pattern>/SecondServletContext</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
