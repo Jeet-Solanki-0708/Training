@@ -70,5 +70,8 @@ public class CollegeInformation {
 		classObject.getCollegeStudentCount();
 		classObject.getCollegeStudentName();
 		classObject.getCollegeStudentUniqueName();
+		StoreStudentCollegeData addData=new StoreStudentCollegeData();
+		//addData.addCollegeStudentData();                 //adding data to database
+		addData.displayCollegeStudents();       // Displaying from database
 	}
 }
