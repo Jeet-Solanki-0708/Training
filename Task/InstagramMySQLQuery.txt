@@ -27,3 +27,54 @@
 7) Find bot users who have liked every single photo
 
  select username,count(*) from users join likes on users.id=likes.user_id group by likes.user_id having count(*)=(select count(*) from photos);
+
+
+
+
+USER FUNCTION
+
+CREATE FUNCTION ValidAge(
+    age int
+    )
+    RETURNS varchar(20)
+    DETERMINISTIC
+    BEGIN
+    	DECLARE str varchar(20);
+    	if age > 15 then
+    		set str="Can";
+    	else
+    		set str="Cannot";
+    end if;
+    return (str);
+    end$$
+
+
+CREATE FUNCTION CustomerLevel(
+	credit DECIMAL(10,2)
+) 
+RETURNS VARCHAR(20)
+DETERMINISTIC
+BEGIN
+    DECLARE customerLevel VARCHAR(20);
+    IF credit > 50000 THEN
+		SET customerLevel = 'PLATINUM';
+    ELSEIF (credit >= 50000 AND 
+			credit <= 10000) THEN
+        SET customerLevel = 'GOLD';
+    ELSE
+        SET customerLevel = 'SILVER';
+    End IF;
+    RETURN (customerLevel);
+END$$
+
+
+
+TRIGGER 
+
+ create trigger ageRestrict before insert on record for each row begin if new.age<18 then signal sqlstate '45000' set message_text='Must be an adult'; end if;end$$
+
+//will not allow to insert data below 18
+
+create trigger capture_unfollows after delete on follows for each row begin insert into unfollows(foller_id,followee_id) values (old.foller_id,old.followee_id);end$$
+
+//data will be inserted into unfollows table on deletion from follows table
