@@ -1,0 +1,123 @@
+db.companies.insertOne({name:"Fresh Apples Inc", isStartup:true,employees:33,funding:123456789,details:{ceo:"Mark"},foundingDate:new Date()})
+
+db.companies.find().pretty()
+
+db.stats()
+
+--One to Many
+
+db.questionThreads.insertOne({creator: "MAX",question:"How does all work?",answers:["q1a1","q1a2"]})
+
+db.questionThreads.findOne()
+
+ db.answers.insertMany([{_id:"q1a1",text:"Yhis works fine"},{_id:"q1a2",text:"Thanks!"}])
+
+db.questionThreads.deleteMany({})
+
+db.questionThreads.insertOne({creator: "MAX",question:"How does all work?",answers:[{_id:"q1a1",text:"Yhis works fine"},{_id:"q1a2",text:"Thanks!"}]})
+
+
+
+db.users.insertMany([{name:"Dhairya",age:22,email:"abc@gmail.com"},{name:"Jeet",age:29,email:"def@gmail.com"}])
+
+db.posts.insertOne({title:"Mongo",text:"First",tags:["db","dbms"],creator:ObjectId("5f0d78a940813a956648e057"),comments:[{text:"Cool",author:ObjectId("5f0d78a940813a956648e056")}]})
+
+
+db.users.insertMany([{name:"Max",age:12,email:"abc@gmail.com"},{name:"Min",age:13,email:"def@yahoo.com"}])
+db.posts.insertOne({title:"The First Post",text:"This is the first of many coming Hope you all Like it!",creater:ObjectId("5f0da7a5760bc50329136d9a"),comments:[{text:"Yay finally fond the right path",author:ObjectId("5f0da7a5760bc50329136d9b")},{text:"Haha noice",author:ObjectId("5f0da7a5760bc50329136d9a")}]})
+
+--validation level
+db.createCollection("posts",{validate:{$jsonSchema:{bsonType:"object",required:['title','text','creator','comments'],properties:{title:{bsonType:"string",description:"must be a string and is required"},text:{bsonType:"string",description:"must be a string and is required"},creator:{bsonType:"objectId",description:"must be a objectId and is required"},comments:{bsonType:"array",description:"must be a array and is required",items:{bsonType:"object",required:['text','author'],properties:{text:{bsonType:"string",description:"must be a string  and is required"},author:{bsonType:"objectId",description:"must be a objectid and is required"}}}}}}}})
+
+--validateAction
+db.runCommand({
+	collMod: 'posts',
+	validator: {
+		$jsonSchema: {
+			bsonType: 'object',
+			required: ['title', 'text', 'creator', 'comments'],
+			properties: {
+				title: {
+					bsonType: 'string',
+					description: 'must be a string and is required'
+				},
+				text: {
+					bsonType: 'string',
+					description: 'must be a string and is required'
+				},
+				creator: {
+					bsonType: 'objectId',
+					description: 'must be an objectid and is required'
+				},
+				comments: {
+					bsonType: 'array',
+					description: 'must be an array and is required',
+					items: {
+						bsonType: 'object',
+						required: ['text', 'author'],
+						properties: {
+							text: {
+								bsonType: 'string',
+								description: 'must be a string and is required'
+							},
+							author: {
+								bsonType: 'objectId',
+								description: 'must be an objectid and is required'
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	validationAction: 'warn'
+});
+
+
+---insert()
+
+db.persons.insert({name:"Dhairya",age:22})
+
+db.persons.insertMany([{_id:"dhairya",name:"Dhairya",age:22},{_id:"pathik",name:"Pathik",age:22}],{ordered:false})
+db.persons.insertMany([{_id:"dhairya",name:"Dhairya",age:22},{_id:"jeet",name:"Jeet",age:22}],{ordered:false})
+db.persons.insertMany([{_id:"dhairya",name:"Dhairya",age:22},{_id:"sarang",name:"Jeet",age:22}],{ordered:true})
+
+----WriteConcern
+ db.persons.insertOne({name:"Mik",age:22},{writeConcern:{w:0}})
+  db.persons.insertOne({name:"Michael",age:22},{writeConcern:{w:1}})
+db.persons.insertOne({name:"Alice",age:22},{writeConcern:{w:1,j:true}})
+db.persons.insertOne({name:"Alas",age:22},{writeConcern:{w:1,j:true,wtimeout:200}})
+
+----Importing data
+mongoimport tv-shows.json -d movieData -c movies --jsonArray --drop
+
+
+-----find and findOne
+db.movies.findOne()
+db.movies.findOne({name:"The Last Ship"})
+ db.movies.findOne({runtime:{$lte:30}})
+ db.movies.findOne({"rating.average":{$gt:7}})
+db.movies.find({"genres":"Drama"})
+db.movies.find({genres:["Action"]})
+db.movies.find({runtime:{$in:[30,42]}}).pretty()
+
+db.movies.find({$or:[{"rating.average":{$lt:5}},{"rating.average":{$gt:9.3}}]}).pretty()
+db.movies.find({$nor:[{"rating.average":{$lt:5}},{"rating.average":{$gt:9.3}}]}).pretty()
+
+ db.movies.find({$and:[{genres:"Drama"},{"rating.average":{$gt:9}}]}).pretty()
+db.movies.find({genres:"Drama","rating.average":{$gt:9}}).pretty().count()
+
+
+----Embedded Array
+db.user.find({"hobbies.title":"Sports"}).pretty()
+ db.user.find({hobbies:{$size:2}}).pretty()
+
+db.moviestarts.find({genre:{$all:["action","thriller"]}}).pretty()
+
+db.user.find({hobbies:{$elemMatch:{title:"Sports",frequency:{$gte:3}}}})
+
+db.user.find().sort({name:-1}).pretty()
+
+db.user.find().sort({name:-1}).skip(1).limit(1).pretty()
+
+db.user.find().sort({name:-1}).limit(1).skip(1).pretty()
