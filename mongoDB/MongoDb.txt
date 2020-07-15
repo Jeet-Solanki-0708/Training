@@ -121,3 +121,68 @@ db.user.find().sort({name:-1}).pretty()
 db.user.find().sort({name:-1}).skip(1).limit(1).pretty()
 
 db.user.find().sort({name:-1}).limit(1).skip(1).pretty()
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+
+ db.movies.find({},{name:1,genres:1,_id:0}).pretty()
+db.movies.find({},{"schedule.time":1}).pretty()
+
+db.movies.find({},{genres:{$slice:2}}).pretty()
+db.user.updateMany({"hobbies.title":"Sports"},{$set:{isSporty:true}})
+db.user.updateOne({_id:ObjectId("5f0e9b3110f2a26a9ba28cbd")},{$set:{hobbies:[{title:"Sports",frequency:5},{title:"Cooking",frequency:3},{title:"Hiking",frequency:1}]}})
+
+db.user.updateMany({"name":"Chris"},{$set:{age:40,phone:966501212}})
+db.user.updateOne({name:"Manuel"},{$inc:{age:1},$set :{isSporty:false}})
+
+db.user.updateMany({isSporty:true},{$unset:{phone:""}})
+db.user.find({$and:[{name:"Chris",age:30}]}).pretty()
+db.user.updateMany({},{$rename:{age:"totalAge"}})
+
+db.user.updateMany({name:"Maria"},{$set:{age:29,hobbies:[{title:"Good Food",frequency:3}],isSporty:true}},{upsert:true})
+
+
+db.sports.updateMany({},{$set:{title:"Running",requiresTeam:false}},{upsert:true})
+db.sports.updateMany({title:"Soccer"},{$set:{requiresTeam:true}},{upsert:true})
+db.sports.updateMany({requiresTeam:true},{$set:{minSize:20}},{upsert:true})
+db.sports.updateMany({requiresTeam:true},{$inc:{minSize:1}},{upsert:true})
+
+
+db.user.updateMany({hobbies:{$elemMatch:{title:"Sports",frequency:{$gte:3}}}},{$set:{"hobbies.$.highFrequency":true}})
+
+db.user.updateMany({"hobbies.frequency":{$gt:2}},{$set:{"hobbies.$.goodFrequency":true}})
+
+db.user.updateMany({"hobbies.frequency":{$gt:2}},{$set:{"hobbies.$[el].goodFrequency":true}},{arrayFilters:[{"el.frequency":{$gt:2}}]})
+
+ db.user.deleteOne({name:"Chris"})
+db.user.deleteMany({totalAge:{$exits:false},isSporty:true})
+
+db.contacts.createIndex({"dob.age":1})
+db.contacts.dropIndex({"dob.age":1})
+db.contacts.explain("executionStats").find({"dob.age":{$gt:60}})
+
+db.sessions.createIndex({createdAt:1},{expireAfterSeconds:10})
+db.sessions.insertOne({data:"abcd",createdAt:new Date()})
+
+
+db.products.insertMany([{title:"A Book",description:"This is an awesome book about a young artist!"},{title:"Red T-shirt",description:"This T-shirt is red and it's pretty awseome!"}])
+
+db.createIndex({description:"text"})
+db.products.find({$text:{$search:"awesome"}})
+db.products.find({$text:{$search:"\"awesome book\""}})
+
+db.products.dropIndex("description_text")
+
+db.places.insertOne({name:"California Academy of Sciences",location:{type:"Point",coordinates:[-122,37]}})
+
+db.places.find({location:{$near:{$geometry:{$type:"Point",coordinates:[-120,37]}}}})
+db.places.createIndex({location:"2dsphere"})
+db.places.find({location:{$near:{$geometry:{$type:"Point",coordinates:[-120,37]}}}})
+db.places.find({location:{$near:{$geometry:{$type:"Point",coordinates:[-122,37]},$maxDistance:500,$minDistance:0}}})
+db.places.insertOne({name:"Conservatory of flowers",location:{type:"Point",coordinates:[-122.46,37]}})
