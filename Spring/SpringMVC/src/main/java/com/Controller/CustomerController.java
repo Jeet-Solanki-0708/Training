@@ -1,0 +1,31 @@
+package com.Controller;
+
+import javax.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.bean.Customer;
+
+@Controller
+@RequestMapping("/customer")
+public class CustomerController {
+
+	@RequestMapping("/")
+	public String showForm(Model model) {
+		model.addAttribute("customer",new Customer());
+		return "CustomerForm";
+	}
+	
+	@RequestMapping("/processForm")
+	public String display(@Valid @ModelAttribute("customer") Customer customer,BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "CustomerForm";
+		}
+		return "confirmation";
+	}
+}
