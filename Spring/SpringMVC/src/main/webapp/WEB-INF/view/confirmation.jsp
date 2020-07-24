@@ -9,5 +9,8 @@
 <body>
 ${customer.firstName}
 ${customer.lastName}
+${customer.freepass}
+${customer.postalCode}
+${customer.courseCode}
 </body>
 </html>
