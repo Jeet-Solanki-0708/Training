@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .mybox1 {
+            background-color: tomato;
+            min-height: 200px;
+            margin: 20px 10px;
+            padding: 20px;
+        }
+        h1{
+            color: red;
+        }
+        @media (min-width: 576px) { 
+            h1{
+                color: blue;
+            }
+        }
+@media (min-width: 768px) { 
+
+}
+
+@media (min-width: 992px) { 
+    h1{
+        color: purple;
+    }
+}
+
+
+@media (min-width: 1200px) {
+
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="mybox1">Logo</div>
+            </div>
+            <div class="col" >
+                <div class="mybox1">Logo</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="mybox1">
+                    <h1>How are you</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="mybox1">Feature1</div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="mybox1">Feature1</div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3">
+                <div class="mybox1">Feature1</div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 d-md-none d-lg-block">
+                <div class="mybox1">Feature1</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
