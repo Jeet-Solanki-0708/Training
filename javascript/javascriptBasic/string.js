@@ -2,6 +2,8 @@ let city='Ahmedabad'
 let country='India'
 let location=city+', '+country;
 
+let num1:Number
+
 console.log(location)
 
 let studentScore=18
