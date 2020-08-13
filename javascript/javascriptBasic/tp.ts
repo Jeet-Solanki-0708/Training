@@ -1,3 +1,0 @@
-interface Person {
-    firstName:string;
-}
