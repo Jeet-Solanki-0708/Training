@@ -29,6 +29,7 @@ const saveNote=(notes)=>{
 }
 
 const listNotes=()=>{
+    debugger
     const notes=loadNotes()
     notes.forEach((note)=>{
         console.log(note.title)
