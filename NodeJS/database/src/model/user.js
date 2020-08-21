@@ -13,9 +13,32 @@ const User=db.define('User',{
         type:Sequelize.STRING
     },
     age:{
-        type:Sequelize.NUMBER
+        type:Sequelize.INTEGER
     }
 })
 
+const Customer=db.define('Customer',{
+    name:{
+        type:Sequelize.STRING
+    },
+    email:{
+        type:Sequelize.STRING
+    },
+    password:{
+        type:Sequelize.STRING
+    },
+    age:{
+        type:Sequelize.INTEGER
+    }
+})
 
-module.exports = User
+User.sync().then(() => {
+    console.log('table created');
+}).catch((err)=>{console.log('Error',err)});
+
+Customer.sync().then(() => {
+    console.log('table created');
+}).catch((err)=>{console.log('Error',err)});
+
+
+module.exports = {User,Customer}

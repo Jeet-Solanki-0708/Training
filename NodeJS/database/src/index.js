@@ -1,25 +1,40 @@
 const express = require('express')
-require('./db/connection')
+const database=require('./db/connection')
 const user = require('./model/user')
 const Sequelize  = require('sequelize');
+const bcrypt = require('bcrypt');
 const app = express()
+
+database.sync().then(() => {
+    console.log('table created');
+}).catch((err)=>{console.log('Error',err)});
 
 app.use(express.json())
 
 app.post('/users', (req, res) => {
     console.log(req.body)
     let {name,email,password,age}=req.body
-    console.log(name)
-    console.log(email)
-    console.log(password)
+    //console.log(name)
+    //console.log(email)
+    console.log('p1 '+password)
+    getHash(password).then((data)=>{
+        password=data
+    }).catch(()=>{
+
+    })
+    console.log('p2 '+password)
     user.create({
         name,email,password,age
     }).then(data=>res.send(data))
       .catch(err=>{
           res.status(400).send(err)
       })  
-    //res.send('Testingq')
 })
+const getHash=async(password)=>{
+    const hashPassword=await bcrypt.hash(password,8)
+    console.log('getHash'+hashPassword)
+    return hashPassword
+}
 
 app.get('/users',(req,res)=>{
     user.findAll().then(data=>res.send(data))
@@ -50,6 +65,7 @@ app.patch('/users/:id',(req,res)=>{
     let {name,email,password,age}=req.body
     console.log(req.body)
     const updates=Object.keys(req.body)
+    console.log(updates)
     const allowedUpdates=['name','email','password','age']
     const isValid=updates.every((update)=>allowedUpdates.includes(update))
     if(!isValid){
@@ -86,6 +102,8 @@ app.delete('/users/:id',(req,res)=>{
     })
 })
 
-app.listen(3001, () => {
+
+
+app.listen(5123, () => {
     console.log('Server is up on port ')
 })
