@@ -11,12 +11,7 @@ const client = new Client({
 client.connect();
 
 // const query = `
-// CREATE TABLE users (
-//     email varchar,
-//     firstName varchar,
-//     lastName varchar,
-//     age int
-// );
+//CREATE TABLE user (id serial,email varchar,name varchar,password varchar,age int);
 // `;
 
 
