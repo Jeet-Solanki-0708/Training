@@ -17,24 +17,15 @@ app.post('/users', (req, res) => {
     //console.log(name)
     //console.log(email)
     console.log('p1 '+password)
-    getHash(password).then((data)=>{
-        password=data
-    }).catch(()=>{
-
-    })
-    console.log('p2 '+password)
-    user.create({
+    
+    user.User.create({
         name,email,password,age
     }).then(data=>res.send(data))
       .catch(err=>{
           res.status(400).send(err)
       })  
 })
-const getHash=async(password)=>{
-    const hashPassword=await bcrypt.hash(password,8)
-    console.log('getHash'+hashPassword)
-    return hashPassword
-}
+
 
 app.get('/users',(req,res)=>{
     user.findAll().then(data=>res.send(data))
@@ -104,6 +95,6 @@ app.delete('/users/:id',(req,res)=>{
 
 
 
-app.listen(5123, () => {
+app.listen(3001, () => {
     console.log('Server is up on port ')
 })
