@@ -1,0 +1,29 @@
+body{
+    background:white;
+    color: #ffffff;
+}
+.navbar{
+    min-height: 10%;
+}
+#section{
+    margin-top: 10% !important;
+}
+#sectionLogin{
+    margin: 0 25% !important;
+    margin-top: 10% !important;
+}
+.infoPara{
+    margin-top: 10%;
+}
+@media(max-width:1024px){
+    #section{
+        margin: 30% 15%!important;
+    }
+    #sectionLogin{
+        margin: 30% 15% !important;
+    }
+    .infoPara{
+        margin-top: 30%;
+    }
+}
+

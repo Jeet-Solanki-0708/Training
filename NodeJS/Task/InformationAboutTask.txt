@@ -1,0 +1,4 @@
+index.js main js file which is in src/js folder
+http://localhost:3046/users is used to run signup page
+http://localhost:3046/login is used to run login page
+router contains all routes
