@@ -6,9 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  loadedFeature = 'recipe';
-
-  onNavigate(feature) {
-    this.loadedFeature = feature;
+  oddNum=[]
+  evenNum=[]
+  onIntervalFired(num){
+    if(num%2===0){
+      this.evenNum.push(num)
+    }else{
+      this.oddNum.push(num)
+    }
   }
+
+  
 }
