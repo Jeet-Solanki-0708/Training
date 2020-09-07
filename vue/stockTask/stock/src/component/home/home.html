@@ -1,0 +1,16 @@
+<div>
+  <div v-if="auth">
+    <h1>Trade or View your Portfolio</h1>
+    <h6>Click 'End Day' to begin a New Day!</h6>
+    <hr />
+
+    <div v-html="home"></div>
+    <p>Your Funds: {{ funds }}</p>
+  </div>
+  <div v-if="!auth">
+    Please Login first :
+    <router-link to="/signin" activeClass="active" v-if="!auth">
+      <a>Signin</a>
+    </router-link>
+  </div>
+</div>

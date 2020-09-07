@@ -1,0 +1,43 @@
+<div id="signup">
+  <form @submit.prevent="onSubmit">
+    <div class="form-group input" :class="{invalid: $v.email.$error}">
+      <label>Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Enter email"
+        @input="$v.email.$touch()"
+        v-model="email"
+      />
+      <p v-if="!$v.email.email">Please provide a valid email address.</p>
+      <p v-if="!$v.email.required">This field must not be empty.</p>
+    </div>
+    <div class="form-group input" :class="{invalid: $v.password.$error}">
+      <label>Password</label>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Password"
+        @blur="$v.password.$touch()"
+        v-model="password"
+      />
+    </div>
+    <p v-if="!$v.password.minLen">Should be greatere than 4.</p>
+    <p v-if="!$v.password.required">This field must not be empty.</p>
+    <div class="input">
+      <label>Your Age</label>
+      <input
+        :class="{invalid: $v.age.$error}"
+        type="number"
+        @blur="$v.age.$touch()"
+        id="age"
+        v-model.number="age"
+      />
+      <p v-if="!$v.age.minVal">
+        You have to be at least {{ $v.age.$params.minVal.min }} years old.
+      </p>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
