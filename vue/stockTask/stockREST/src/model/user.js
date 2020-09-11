@@ -56,9 +56,11 @@ const User = db.define('User', {
     }
 })
 
+
+
+
 User.sync().then(() => {
     console.log('table created');
 }).catch((err) => { console.log('Error', err) });
-
 
 module.exports = { User }
